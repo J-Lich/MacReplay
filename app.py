@@ -40,16 +40,16 @@ else:
     # If running as a regular script, use the script's current directory
     app_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Paths to ffmpeg.exe and ffprobe.exe in the root folder
-ffmpeg_path = os.path.join(app_dir, 'ffmpeg', 'ffmpeg.exe')
-ffprobe_path = os.path.join(app_dir, 'ffmpeg', 'ffprobe.exe')
+# Use shutil.which to find ffmpeg and ffprobe in the system's PATH
+ffmpeg_path = shutil.which("ffmpeg")
+ffprobe_path = shutil.which("ffprobe")
 
-# Check if the files exist (for debugging purposes)
-if not os.path.exists(ffmpeg_path) or not os.path.exists(ffprobe_path):
-    logger.error("Error: ffmpeg.exe or ffprobe.exe not found!")
-#else:
-#    print(f"Found ffmpeg at {ffmpeg_path}")
-#    print(f"Found ffprobe at {ffprobe_path}")
+# Check if the executables were found
+if not ffmpeg_path or not ffprobe_path:
+    logger.error("Error: ffmpeg or ffprobe not found in system PATH!")
+    # You might want to exit or handle the error appropriately
+    # sys.exit("Exiting: ffmpeg/ffprobe dependency not met.")
+
 
 import flask
 from flask import Flask, jsonify
