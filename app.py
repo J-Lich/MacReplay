@@ -1419,10 +1419,11 @@ def start_refresh():
     # Run refresh_lineup in a separate thread
     threading.Thread(target=refresh_lineup, daemon=True).start()
     threading.Thread(target=refresh_xmltv, daemon=True).start()
-    
-    
+
+## Global Load
+config = loadConfig()
+
 if __name__ == "__main__":
-    config = loadConfig()
 
     # Start the refresh thread before the server
     start_refresh()
